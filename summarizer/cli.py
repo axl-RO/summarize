@@ -21,17 +21,18 @@ def main():
 
     elif args.file:
         with open(args.file, "r", encoding="utf-8") as f:
-            raw = f.read()
+            raw_text = f.read()
 
         if args.batch > 1:
-            chunks = raw.split("\n\n")
-            texts = chunks[:args.batch]
+            chunks = raw_text.split("\n\n")
+            texts.extend(chunks[:args.batch])
         else:
-            texts = [raw]
+            texts.append(raw_text)
 
     else:
         print("Provide --text or --file")
         return
+
 
     summaries = summarize_batch(
         texts,
